@@ -9,7 +9,7 @@ Original file is located at
 **Task 06: Modifying RDF(s)**
 """
 
-!pip install rdflib
+# !pip install rdflib
 github_storage = "https://raw.githubusercontent.com/FacultadInformatica-LinkedData/Curso2023-2024/master/Assignment4/course_materials"
 
 """Read the RDF file as shown in class"""
@@ -33,35 +33,65 @@ for s, p, o in g:
 """
 
 # TO DO
+g.add((ns.University, RDF.type, RDFS.Class))
+
 # Visualize the results
+print("6.1")
 for s, p, o in g:
   print(s,p,o)
 
 """**TASK 6.2: Add "Researcher" as a subclass of "Person"**"""
 
 # TO DO
+g.add((ns.Researcher, RDFS.subClassOf, ns.Person))
+
 # Visualize the results
+print("6.2")
 for s, p, o in g:
   print(s,p,o)
 
 """**TASK 6.3: Create a new individual of Researcher named "Jane Smith"**"""
 
 # TO DO
+
+g.add((ns.JaneSmith, RDF.type, ns.Researcher))
+
 # Visualize the results
+print("6.3")
 for s, p, o in g:
   print(s,p,o)
 
 """**TASK 6.4: Add to the individual JaneSmith the email address, fullName, given and family names**"""
 
 # TO DO
+VCARD = Namespace("http://www.w3.org/2001/vcard-rdf/3.0#")
+g.add((ns.JaneSmith, VCARD.EMAIL, Literal("j.smith@example.org")))
+g.add((ns.JaneSmith, VCARD.FN, Literal("Jane Smith")))
+g.add((ns.JaneSmith, VCARD["given-name"] , Literal("Jane")))
+g.add((ns.JaneSmith, VCARD["family-name"], Literal("Smith")))
 # Visualize the results
+
+print("6.4")
+for s,p,o in g.triples((ns.JaneSmith, None, None)):
+  print(s, p, o)
 
 """**TASK 6.5: Add UPM as the university where John Smith works**"""
 
 # TO DO
-# Visualize the results
+g.add((ns.UPM, RDF.type, ns.University))
+g.add((ns.UPM, VCARD.FN, Literal("UPM")))
+g.add((ns.JohnSmith, ns.worksAt, ns.UPM))
+
+print("6.5")
+for s,p,o in g.triples((ns.JohnSmith, None, None)):
+  print(s, p, o)
 
 """**Task 6.6: Add that Jown knows Jane using the FOAF vocabulary**"""
 
 # TO DO
+from rdflib import FOAF
+g.add((ns.JohnSmith, FOAF.knows, ns.JaneSmith))
 # Visualize the results
+print("6.6")
+for s,p,o in g.triples((ns.JohnSmith, FOAF.knows, None)):
+  print(s, p, o)

@@ -9,7 +9,7 @@ Original file is located at
 **Task 09: Data linking**
 """
 
-!pip install rdflib
+# !pip install rdflib
 github_storage = "https://raw.githubusercontent.com/FacultadInformatica-LinkedData/Curso2020-2021/master/Assignment4/"
 
 from rdflib import Graph, Namespace, Literal, URIRef
@@ -20,3 +20,14 @@ g1.parse(github_storage+"resources/data03.rdf", format="xml")
 g2.parse(github_storage+"resources/data04.rdf", format="xml")
 
 """Busca individuos en los dos grafos y enlázalos mediante la propiedad OWL:sameAs, inserta estas coincidencias en g3. Consideramos dos individuos iguales si tienen el mismo apodo y nombre de familia. Ten en cuenta que las URI no tienen por qué ser iguales para un mismo individuo en los dos grafos."""
+
+from rdflib.namespace import OWL
+VCARD = Namespace("http://www.w3.org/2001/vcard-rdf/3.0#")
+
+for s1,p1,o1 in g1.triples((None,VCARD.FN,None)):
+    for s2,p2,o2 in g2.triples((None,VCARD.FN,o1)):
+        g3.add((s1, OWL.sameAs, s2))
+
+print("final g3")
+for s3,p3,o3 in g3:
+    print(s3,p3,o3)

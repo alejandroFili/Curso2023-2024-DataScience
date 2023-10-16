@@ -9,7 +9,7 @@ Original file is located at
 **Task 08: Completing missing data**
 """
 
-!pip install rdflib
+# !pip install rdflib
 github_storage = "https://raw.githubusercontent.com/FacultadInformatica-LinkedData/Curso2020-2021/master/Assignment4/"
 
 from rdflib import Graph, Namespace, Literal, URIRef
@@ -19,3 +19,16 @@ g1.parse(github_storage+"resources/data01.rdf", format="xml")
 g2.parse(github_storage+"resources/data02.rdf", format="xml")
 
 """Tarea: lista todos los elementos de la clase Person en el primer grafo (data01.rdf) y completa los campos (given name, family name y email) que puedan faltar con los datos del segundo grafo (data02.rdf). Puedes usar consultas SPARQL o iterar el grafo, o ambas cosas."""
+
+from rdflib.namespace import RDF, RDFS
+ns =Namespace("http://data.org#")
+
+for s1,p1,o1 in g1.triples((None,None,ns.Person)):
+    for s2,p2,o2 in g2.triples((s1,None,None)):
+        if(p2 != RDF.type):
+            g1.add((s2,p2,o2))  
+
+  
+print("final g1")
+for s1,p1,o1 in g1:
+    print(s1,p1,o1)
