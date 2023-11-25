@@ -23,7 +23,7 @@ g.parse(github_storage+"/rdf/example6.rdf", format="xml")
 
 ns = Namespace("http://somewhere#")
 
-"""**TASK 7.1: List all subclasses of "LivingThing" with RDFLib and SPARQL**"""
+"""**TASK 7.1: List all subclasses (at any level of hierarchy, including indirect subclasses) of "LivingThing" with RDFLib and SPARQL**"""
 
 # TO DO
 from rdflib.plugins.sparql import prepareQuery
@@ -31,19 +31,25 @@ from rdflib.plugins.sparql import prepareQuery
 livingThing_query = prepareQuery('''
 SELECT ?subClase
 WHERE {
-    ?subClase rdfs:subClassOf ns:LivingThing
+    ?subClase rdfs:subClassOf* ns:LivingThing
 }                      
 ''',
 initNs = { "rdfs": RDFS, "ns": ns}
 )
 # Visualize the results
-print("7.1")
+print("7.1 - SPARQL")
 for r in g.query(livingThing_query):
   print(r.subClase)
 
-"""**TASK 7.2: List all individuals of "Person" with RDFLib and SPARQL (remember the subClasses)**
+print("7.1 - ONLY RDFLIB")
+def getAllSubclases(parent: str):
+     for s, p, o in g.triples((None, RDFS.subClassOf, parent)):
+         print(s)
+         getAllSubclases(s)
 
-"""
+getAllSubclases(ns.LivingThing)
+
+"""**TASK 7.2: List all individuals of "Person" (and all it's subclasses) with RDFLib and SPARQL**"""
 
 # TO DO
 # from rdflib.plugins.sparql import prepareQuery
@@ -51,15 +57,28 @@ for r in g.query(livingThing_query):
 person_query = prepareQuery('''
 SELECT ?person
 WHERE {
-    ?person rdf:type ns:Person
+    ?person rdf:type/rdfs:subClassOf* ns:Person
 }                      
 ''',
 initNs = { "rdf": RDF, "rdfs": RDFS, "ns": ns}
 )
 # Visualize the results
-print("7.2")
+print("7.2 - SPARQL")
 for r in g.query(person_query):
   print(r.person)
+
+print("7.2 - ONLY RDFLIB")
+def getAllSubclasesIndividuals(parent: str):
+     for s, p, o in g.triples((None, RDFS.subClassOf, parent)):
+         getAllIndivituals(s)
+         getAllSubclasesIndividuals(s)
+
+def getAllIndivituals(indType : str):
+    for s,p,o in g.triples((None, RDF.type, indType)):
+        print(s)
+
+getAllIndivituals(ns.Person)
+getAllSubclasesIndividuals(ns.Person)
 
 """**TASK 7.3: List all individuals of "Person" or "Animal" and all their properties including their class with RDFLib and SPARQL. You do not need to list the individuals of the subclasses of person**
 
@@ -71,46 +90,70 @@ for r in g.query(person_query):
 query_3 = prepareQuery('''
 SELECT ?subject ?predicate ?object
 WHERE {
-     ?subject ?predicate ?object .
-     ?subject rdf:type ?type .
-FILTER (
-     ?type = ns:Animal || ?type = ns:Person
-)
+     {
+          ?subject ?predicate ?object .
+          ?subject rdf:type ns:Animal .                
+     }
+     UNION
+     {
+          ?subject ?predicate ?object .
+          ?subject rdf:type ns:Person .                
+     }
+
 }
 ''',
 initNs = { "rdf": RDF, "rdfs": RDFS, "ns": ns}
 )
 
 # Visualize the results
-print("7.3")
+print("7.3 - SPARQL")
 for r in g.query(query_3):
   print(r.subject, r.predicate, r.object)
+
+print("7.3 - ONLY RDFLIB")
+def getAllData(subject: str):
+    for s,p,o in g.triples((subject, None, None)):
+        print(s,p,o)
+
+def getAllDataIndivituals(indType : str):
+    for s,p,o in g.triples((None, RDF.type, indType)):
+        getAllData(s)
+
+getAllDataIndivituals(ns.Person)
+getAllDataIndivituals(ns.Animal)
+
 
 """**TASK 7.4:  List the name of the persons who know Rocky**"""
 
 # TO DO
 # from rdflib.plugins.sparql import prepareQuery
 from rdflib import FOAF
-VCARD = Namespace("http://www.w3.org/2001/vcard-rdf/3.0")
+from rdflib import XSD
+VCARD = Namespace("http://www.w3.org/2001/vcard-rdf/3.0/")
 
 query_4 = prepareQuery('''
 SELECT ?Rocky_URI  ?amigo_URI ?amigo_name
 WHERE {
-     ?Rocky_URI <http://www.w3.org/2001/vcard-rdf/3.0/Given>  ?given_name . 
+     ?Rocky_URI vcard:Given "Rocky"^^xsd:string . 
      ?amigo_URI foaf:knows ?Rocky_URI .
-     ?amigo_URI <http://www.w3.org/2001/vcard-rdf/3.0/Given>  ?amigo_name . 
+     ?amigo_URI vcard:Given  ?amigo_name . 
                                    
-
-     FILTER(?given_name = "Rocky")
 }
 ''',
-initNs = { "foaf": FOAF , "ns" : ns, "vcard": VCARD}
+initNs = {"xsd":XSD, "foaf": FOAF , "ns" : ns, "vcard": VCARD}
 )
 
 # Visualize the results
-print("7.4")
+print("7.4 - SPARQL")
 for r in g.query(query_4):
      print(r.amigo_name)
+
+
+print("7.4 - RDFLIB ONLY")
+for rocky_uri in g.subjects(VCARD.Given, Literal('Rocky', datatype= XSD.string)):
+    for amigo_uri in g.objects(rocky_uri, FOAF.knows):
+        for amigo_name in g.objects(amigo_uri, VCARD.Given):
+            print(amigo_name)
 
 """**Task 7.5: List the entities who know at least two other entities in the graph**"""
 
@@ -118,7 +161,7 @@ for r in g.query(query_4):
 
 # from rdflib.plugins.sparql import prepareQuery
 # from rdflib import FOAF
-VCARD = Namespace("http://www.w3.org/2001/vcard-rdf/3.0")
+VCARD = Namespace("http://www.w3.org/2001/vcard-rdf/3.0/")
 
 query_5 = prepareQuery('''
 SELECT ?entity ?relatedEntity
@@ -134,6 +177,19 @@ initNs = { "foaf": FOAF , "ns" : ns, "vcard": VCARD}
 )
 
 # Visualize the results
-print("7.5")
+print("7.5 - SPARQL")
 for r in g.query(query_5):
      print(r.entity)
+
+print("7.5 - RDFLIB ONLY")
+know_dict = {}
+
+for entity in g.subjects(FOAF.knows, None):
+    current_key = str(entity)
+    know_dict.setdefault(current_key,0)
+    know_dict[current_key] += 1
+
+for key, value in know_dict.items():
+    if value >= 2:
+        print(key)
+

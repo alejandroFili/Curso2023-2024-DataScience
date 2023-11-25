@@ -28,16 +28,11 @@ ns = Namespace("http://somewhere#")
 rdfs = Namespace("http://www.w3.org/2000/01/rdf-schema#")
 
 print("RDFLib")
-def fun_subclasses(g,class_name):
-  subclasses = set()
-  for s,p,o in g.triples((None,RDF.type,RDFS.Class)):
-    if (s,RDFS.subClassOf,class_name) in g:
-      subclasses.add(s)
-      subclasses.update(fun_subclasses(g,s))
-  return subclasses
-subclasses_lt = fun_subclasses(g,ns.LivingThing)
-for subclass in subclasses_lt:
-  print(subclass)
+def printSubClasses(c):
+  for s, p, o in g.triples((None, RDFS.subClassOf, c)):
+    print(s)
+    printSubClasses(s)
+printSubClasses(ns.LivingThing)
 
 
 
@@ -167,4 +162,4 @@ q5 = prepareQuery('''
 )
 
 for r in g.query(q5):
-  print(r.entity)
+  print(r)
