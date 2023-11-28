@@ -1,0 +1,160 @@
+ @prefix base: <https://w3id.org/DogFriendlyMadrid/> .
+@prefix dog-det: <https://w3id.org/DogFriendlyMadrid/info/ontology/details#> .
+@prefix dog-loc: <https://w3id.org/DogFriendlyMadrid/info/ontology/location#> .
+@prefix dog-ser: <https://w3id.org/DogFriendlyMadrid/info/ontology/services#> .
+@prefix mod: <https://w3id.org/mod#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema-org: <file:///home/scarulli/chowlk_project/chowlk_api-main/httpschema-org#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+schema-org:City a owl:Class ;
+    rdfs:label "City" .
+
+schema-org:GeoCoordinates a owl:Class ;
+    rdfs:label "Geo Coordinates" .
+
+schema-org:Park a owl:Class ;
+    rdfs:label "Park" .
+
+schema-org:State a owl:Class ;
+    rdfs:label "State" .
+
+schema-org:containsPlace a owl:ObjectProperty ;
+    rdfs:label "contains place" .
+
+schema-org:description a owl:DatatypeProperty ;
+    rdfs:label "description" ;
+    rdfs:range xsd:string .
+
+schema-org:geo a owl:ObjectProperty ;
+    rdfs:label "geo" .
+
+schema-org:identifier a owl:DatatypeProperty ;
+    rdfs:label "identifier" ;
+    rdfs:range xsd:string .
+
+schema-org:latitude a owl:DatatypeProperty ;
+    rdfs:label "latitude" ;
+    rdfs:range xsd:float .
+
+schema-org:longitude a owl:DatatypeProperty ;
+    rdfs:label "longitude" ;
+    rdfs:range xsd:float .
+
+schema-org:mainEntityOfPage a owl:DatatypeProperty ;
+    rdfs:label "main entity of page" ;
+    rdfs:range xsd:AnyURI .
+
+schema-org:name a owl:DatatypeProperty ;
+    rdfs:label "name" ;
+    rdfs:range xsd:string .
+
+schema-org:postalCode a owl:DatatypeProperty ;
+    rdfs:label "postal code" ;
+    rdfs:range xsd:string .
+
+rdfs:label a owl:DatatypeProperty ;
+    rdfs:label "label" .
+
+base: a owl:Ontology ;
+    mod:createdWith <https://chowlk.linkeddata.es/> .
+
+dog-det:DogGames a owl:DatatypeProperty ;
+    rdfs:label "dog games" ;
+    rdfs:range xsd:float .
+
+dog-det:hasStatus a owl:DatatypeProperty ;
+    rdfs:label "has status" ;
+    rdfs:range xsd:string .
+
+dog-det:hasTrees a owl:DatatypeProperty ;
+    rdfs:label "has trees" ;
+    rdfs:range xsd:string .
+
+dog-det:isAccessible a owl:DatatypeProperty ;
+    rdfs:label "is accessible" ;
+    rdfs:range xsd:string .
+
+dog-det:itsGroomer a owl:DatatypeProperty ;
+    rdfs:label "its groomer" ;
+    rdfs:range xsd:boolean .
+
+dog-det:itsTraining a owl:DatatypeProperty ;
+    rdfs:label "its training" ;
+    rdfs:range xsd:boolean .
+
+dog-det:itsVet a owl:DatatypeProperty ;
+    rdfs:label "its vet" ;
+    rdfs:range xsd:boolean .
+
+dog-det:ofModelType a owl:DatatypeProperty ;
+    rdfs:label "of model type" ;
+    rdfs:range xsd:string .
+
+dog-det:reachebleBy a owl:DatatypeProperty ;
+    rdfs:label "reacheble by" ;
+    rdfs:range xsd:string .
+
+dog-det:use a owl:DatatypeProperty ;
+    rdfs:label "use" .
+
+dog-loc:District a owl:Class ;
+    rdfs:label "District" .
+
+dog-loc:Neighborhood a owl:Class ;
+    rdfs:label "Neighborhood" .
+
+dog-loc:address a owl:Class ;
+    rdfs:label "address" .
+
+dog-loc:hasAddress a owl:ObjectProperty ;
+    rdfs:label "has address" .
+
+dog-loc:hasCity a owl:ObjectProperty ;
+    rdfs:label "has city" .
+
+dog-loc:hasDistrict a owl:ObjectProperty ;
+    rdfs:label "has district" .
+
+dog-loc:hasNeighborhood a owl:ObjectProperty ;
+    rdfs:label "has neighborhood" .
+
+dog-loc:hasState a owl:ObjectProperty ;
+    rdfs:label "has state" .
+
+dog-loc:hasStreet a owl:ObjectProperty ;
+    rdfs:label "has street" .
+
+dog-loc:hasStreetNumber a owl:DatatypeProperty ;
+    rdfs:label "has street number" ;
+    rdfs:range xsd:string .
+
+dog-loc:isOfStreetType a owl:DatatypeProperty ;
+    rdfs:label "is of street type" ;
+    rdfs:range xsd:string .
+
+dog-loc:thoroughfare a owl:Class ;
+    rdfs:label "thoroughfare" .
+
+dog-ser:DogGarbageBin a owl:Class ;
+    rdfs:label "Dog Garbage Bin" .
+
+dog-ser:DogZone a owl:Class ;
+    rdfs:label "Dog Zone" .
+
+dog-ser:DrinkingFountain a owl:Class ;
+    rdfs:label "Drinking Fountain" .
+
+dog-ser:Vet a owl:Class ;
+    rdfs:label "Vet" .
+
+dog-ser:hasChildrenZone a owl:DatatypeProperty ;
+    rdfs:label "has children zone" .
+
+dog-ser:hasDogZone a owl:DatatypeProperty ;
+    rdfs:label "has dog zone" .
+
+dog-ser:hasSeniorZone a owl:DatatypeProperty ;
+    rdfs:label "has senior zone" .
+
