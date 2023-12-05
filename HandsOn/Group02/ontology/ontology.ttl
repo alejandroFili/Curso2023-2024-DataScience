@@ -1,82 +1,105 @@
- @prefix : <https://vascomap.com/> .
-@prefix dbo: <https://dbpedia.org/ontology/> .
-@prefix mod: <https://w3id.org/mod#> .
-@prefix ns: <https://vascomap.com/ontology/class/> .
+@prefix : <http://www.vascomap.com/ontology#> .
+@prefix ns: <http://www.vascomap.com/ontology#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix prop: <https://vascomap.com/ontology/properties/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.vascomap.com/ontology#> .
 
-dbo:Female a owl:Class ;
-    rdfs:label "Female" ;
-    rdfs:subClassOf dbo:Person .
+<http://www.vascomap.com/ontology#> rdf:type owl:Ontology .
 
-dbo:Male a owl:Class ;
-    rdfs:label "Male" ;
-    rdfs:subClassOf dbo:Person .
+#################################################################
+#    Object Properties
+#################################################################
 
-: a owl:Ontology ;
-    mod:createdWith <https://chowlk.linkeddata.es/> .
+###  http://www.vascomap.com/ontology#belongsTo
+ns:belongsTo rdf:type owl:ObjectProperty ;
+             rdfs:domain ns:Municipality ;
+             rdfs:range ns:Province .
 
-prop:code a owl:DatatypeProperty ;
-    rdfs:label "code" ;
-    rdfs:domain ns:Municipality .
 
-prop:conforms a owl:ObjectProperty ;
-    rdfs:label "conforms" ;
-    rdfs:domain dbo:PoliceOfficer ;
-    rdfs:range ns:PoliceStaff .
+###  http://www.vascomap.com/ontology#has
+ns:has rdf:type owl:ObjectProperty ;
+       rdfs:domain ns:Province ;
+       rdfs:range ns:Municipality .
 
-prop:has a owl:ObjectProperty ;
-    rdfs:label "has" ;
-    rdfs:domain ns:Municipality ;
-    rdfs:range ns:CrimeIndex,
-        ns:PoliceStaff,
-        ns:SecurityIndex .
 
-prop:livesIn a owl:ObjectProperty ;
-    rdfs:label "lives in" ;
-    rdfs:domain dbo:Person ;
-    rdfs:range ns:Municipality .
+###  http://www.vascomap.com/ontology#takesPlaceInMun
+ns:takesPlaceInMun rdf:type owl:ObjectProperty ;
+                   rdfs:domain ns:Observation ;
+                   rdfs:range ns:Municipality .
 
-prop:throughout a owl:ObjectProperty ;
-    rdfs:label "throughout" ;
-    rdfs:domain ns:CrimeIndex,
-        ns:PoliceStaff,
-        ns:SecurityIndex ;
-    rdfs:range dbo:Year .
 
-prop:value a owl:DatatypeProperty ;
-    rdfs:label "value" ;
-    rdfs:domain ns:CrimeIndex,
-        ns:PoliceStaff,
-        ns:SecurityIndex .
+###  http://www.vascomap.com/ontology#takesPlaceInProv
+ns:takesPlaceInProv rdf:type owl:ObjectProperty ;
+                    rdfs:domain ns:Observation ;
+                    rdfs:range ns:Province .
 
-<https://vascomap.com/prop;belongsTo> a owl:ObjectProperty ;
-    rdfs:label "prop;belongs to" ;
-    rdfs:domain ns:Municipality ;
-    rdfs:range ns:Province .
 
-dbo:PoliceOfficer a owl:Class ;
-    rdfs:label "Police Officer" .
+#################################################################
+#    Data properties
+#################################################################
 
-dbo:Year a owl:Class ;
-    rdfs:label "Year" .
+###  http://www.vascomap.com/ontology#code
+ns:code rdf:type owl:DatatypeProperty ;
+        rdfs:domain ns:Municipality ;
+        rdfs:range xsd:integer .
 
-ns:Province a owl:Class ;
-    rdfs:label "Province" .
 
-dbo:Person a owl:Class ;
-    rdfs:label "Person" .
+###  http://www.vascomap.com/ontology#id
+ns:id rdf:type owl:DatatypeProperty ;
+      rdfs:domain ns:Observation ;
+      rdfs:range xsd:string .
 
-ns:CrimeIndex a owl:Class ;
-    rdfs:label "Crime Index" .
 
-ns:SecurityIndex a owl:Class ;
-    rdfs:label "Security Index" .
+###  http://www.vascomap.com/ontology#name
+ns:name rdf:type owl:DatatypeProperty ;
+        rdfs:domain ns:Municipality ,
+                    ns:Province ;
+        rdfs:range xsd:string .
 
-ns:Municipality a owl:Class ;
-    rdfs:label "Municipality" .
 
-ns:PoliceStaff a owl:Class ;
-    rdfs:label "Police Staff" .
+###  http://www.vascomap.com/ontology#value
+ns:value rdf:type owl:DatatypeProperty ;
+         rdfs:domain ns:Observation ;
+         rdfs:range xsd:float .
 
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.vascomap.com/ontology#DotPol
+ns:DotPol rdf:type owl:Class ;
+          rdfs:subClassOf ns:Observation .
+
+
+###  http://www.vascomap.com/ontology#IndDel
+ns:IndDel rdf:type owl:Class ;
+          rdfs:subClassOf ns:Observation .
+
+
+###  http://www.vascomap.com/ontology#InfPen
+ns:InfPen rdf:type owl:Class ;
+          rdfs:subClassOf ns:Observation .
+
+
+###  http://www.vascomap.com/ontology#Municipality
+ns:Municipality rdf:type owl:Class .
+
+
+###  http://www.vascomap.com/ontology#Observation
+ns:Observation rdf:type owl:Class .
+
+
+###  http://www.vascomap.com/ontology#Province
+ns:Province rdf:type owl:Class .
+
+
+###  http://www.vascomap.com/ontology#SegZon
+ns:SegZon rdf:type owl:Class ;
+          rdfs:subClassOf ns:Observation .
+
+
+###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi

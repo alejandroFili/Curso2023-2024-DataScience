@@ -1,0 +1,146 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "LOC",
+    "expression": "grel:value",
+    "onError": "set-to-blank",
+    "newColumnName": "PROVINCIA",
+    "columnInsertIndex": 3,
+    "description": "Create column PROVINCIA at index 3 based on column LOC using expression grel:value"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "PROVINCIA",
+    "newColumnName": "MUNICIPIO",
+    "description": "Rename column PROVINCIA to MUNICIPIO"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "MUNICIPIO",
+    "newColumnName": "PROVINCIA",
+    "description": "Rename column MUNICIPIO to PROVINCIA"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "LOC",
+    "newColumnName": "MUNICIPIO",
+    "description": "Rename column LOC to MUNICIPIO"
+  },
+  {
+    "op": "core/column-move",
+    "columnName": "SAME_AS_WIKIDATA_LOC",
+    "index": 3,
+    "description": "Move column SAME_AS_WIKIDATA_LOC to position 3"
+  },
+  {
+    "op": "core/recon",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "PROVINCIA",
+    "config": {
+      "mode": "standard-service",
+      "service": "https://wikidata.reconci.link/en/api",
+      "identifierSpace": "http://www.wikidata.org/entity/",
+      "schemaSpace": "http://www.wikidata.org/prop/direct/",
+      "type": {
+        "id": "Q162620",
+        "name": "province of Spain"
+      },
+      "autoMatch": true,
+      "columnDetails": [],
+      "limit": 0
+    },
+    "description": "Reconcile cells in column PROVINCIA to type Q162620"
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "PROVINCIA",
+    "expression": "cell.recon.match.id",
+    "onError": "set-to-blank",
+    "newColumnName": "SAME_AS_WIKIDATA_PROVINCE",
+    "columnInsertIndex": 5,
+    "description": "Create column SAME_AS_WIKIDATA_PROVINCE at index 5 based on column PROVINCIA using expression cell.recon.match.id"
+  },
+  {
+    "op": "core/column-removal",
+    "columnName": "SAME_AS_WIKIDATA_PROVINCE",
+    "description": "Remove column SAME_AS_WIKIDATA_PROVINCE"
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "PROVINCIA",
+    "expression": "grel:\"https://www.wikidata.org/wiki/\" + cell.recon.match.id",
+    "onError": "set-to-blank",
+    "newColumnName": "SAME_AS_WIKIDATA_PROVINCIA",
+    "columnInsertIndex": 5,
+    "description": "Create column SAME_AS_WIKIDATA_PROVINCIA at index 5 based on column PROVINCIA using expression grel:\"https://www.wikidata.org/wiki/\" + cell.recon.match.id"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "SAME_AS_WIKIDATA_LOC",
+    "newColumnName": "SAME_AS_WIKIDATA_MUNICIPIO",
+    "description": "Rename column SAME_AS_WIKIDATA_LOC to SAME_AS_WIKIDATA_MUNICIPIO"
+  },
+  {
+    "op": "core/recon",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "MUNICIPIO",
+    "config": {
+      "mode": "standard-service",
+      "service": "https://wikidata.reconci.link/en/api",
+      "identifierSpace": "http://www.wikidata.org/entity/",
+      "schemaSpace": "http://www.wikidata.org/prop/direct/",
+      "type": {
+        "id": "Q2074737",
+        "name": "municipality of Spain"
+      },
+      "autoMatch": true,
+      "columnDetails": [],
+      "limit": 0
+    },
+    "description": "Reconcile cells in column MUNICIPIO to type Q2074737"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "2020",
+    "expression": "value.toNumber()",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column 2020 using expression value.toNumber()"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "CODE",
+    "expression": "value.toNumber()",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column CODE using expression value.toNumber()"
+  }
+]

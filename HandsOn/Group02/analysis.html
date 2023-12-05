@@ -59,6 +59,7 @@ No warranties are given. The license may not give you all of the permissions nec
 			</tr>
 		</body>
 		</table>
+		<p>El dataset se mide mediante porcentajes.</p>
 	<h3 style="color:#33A7B7">DATASET 2, DOTACIÓN POLICIAL</h3>
 		<table class="egt">
 		<tbody style="background: rgba(224, 249, 30, 0.3); border: 1px solid rgba(0, 0, 0, 1);">
@@ -91,6 +92,7 @@ No warranties are given. The license may not give you all of the permissions nec
 			</tr>
 		</tbody>
 		</table>
+		<p>El dataset se mide mediante porcentajes.</p>
 	<h3 style="color:#33A7B7">DATASET 3, ÍNDICE DE DELITOS</h3>
 		<table class="egt">
 		<tbody style="background: rgba(224, 249, 30, 0.3); border: 1px solid rgba(0, 0, 0, 1);">
@@ -123,6 +125,35 @@ No warranties are given. The license may not give you all of the permissions nec
 			</tr>
 		</tbody>
 		</table>
+		<p>El dataset se mide mediante una tasa por mil habitantes.</p>
+		<h3 style="color:#33A7B7">DATASET 4, INFRACCIONES PENALES</h3>
+			<table class="egt">
+			<tbody style="background: rgba(224, 249, 30, 0.3); border: 1px solid rgba(0, 0, 0, 1);">
+				<tr>
+					<th></th>
+					<th>Tipo</th>
+					<th>Descripción</th>
+				</tr>
+			</tbody>
+			<tbody style="background: rgba(2, 199, 254, 0.3); border: 1px solid rgba(0, 0, 0, 0.3);">
+				<tr>
+					<td>PROVINCIA</td>
+					<td>string</td>
+					<td>Contiene el nombre de la provincia</td>
+				</tr>
+				<tr>
+					<td>AÑO</td>
+					<td>float</td>
+					<td>Contiene el índice de infracciones penales de la zona en el año indicado</td>
+				</tr>
+				<tr>
+					<td>RANGO(valor de los datos)</td>
+					<td>float</td>
+					<td>30.32-38.9</td>
+				</tr>
+			</tbody>
+			</table>
+			<p>El dataset se mide mediante una tasa por mil habitantes.</p>
 	<h1 align="center" style="color:#33A7B7">RESOURCE NAMING STRATEGY</h1>
 	<h4 style="color:#33A7B7">DOMINIO</h4>
 	<b style="color:#33A7B7">https://www.vascomap.com/</b>
@@ -131,35 +162,31 @@ No warranties are given. The license may not give you all of the permissions nec
 	<li> Uris para definir los recursos inicializados</li>
 	<h4 style="color:#33A7B7">URIS DE LA ONTOLOGÍA</h4>
 	<p> El dominio elegido para nuestras URIs propias es <b style="color:#33A7B7">https://www.vascomap.com/</b>, el cual hemos verificado que no está en uso.</p>
-	<p> Todas las ontologías(propias) comienzan por: <b style="color:#33A7B7">https://www.vascomap.com/ontology/</b></p>
+	<p> Todas las ontologías(propias) comienzan por: <b style="color:#33A7B7">https://www.vascomap.com/ontology#</b></p>
 	<p> A su vez, este tipo de uris pueden dividirse en:
 	<li> Uris para definir las clases:</li>			
 		<ul>
-			<li style="color:#33A7B7"> https://www.vascomap.com/ontology/class#</li>
+			<li>Observation: definimos 4 subclases (exhaustive disjoint)</li>
+			<ul>
+				<li>DotPol</li>
+				<li>IndDel</li>
+				<li>InfPen</li>
+				<li>SegZon</li>
+			</ul>
 			<li>Municipality</li>
 			<li>Province</li>
-			<li>SecurityIndex</li>
-			<li>PoliceStaff</li>
-			<li>CrimeIndex</li>
 		</ul>
+	<li> Uris para definir propiedades de objeto: </li>
 		<ul>
-			<li style="color:#33A7B7"> https://dbpedia.org/ontology/class#</li>
-			<li>Person</li>
-			<li>Year</li>
-			<li>Man</li>
-			<li>Woman</li>
-			<li>Police Officer</li>
-		</ul>
-	<li> Uris para definir propiedades de objeto: https://www.vascomap.com/ontology/Property#</li>
-		<ul>
-			<li>conforms</li>
+			<li>takesPlaceInProv</li>
+			<li>takesPlaceInMun</li>
 			<li>has</li>
-			<li>throughout</li>
-			<li>livesIn</li>
 			<li>belongsTo</li>
 		</ul>
-	<li> Uris para definir propiedades de datatype: https://www.vascomap.com/ontology/Property#</li>
+	<li> Uris para definir propiedades de datatype:</li>
 		<ul>
+			<li>name</li>
+			<li>id</li>
 			<li>code</li>
 			<li>value</li>
 		</ul>
@@ -167,16 +194,11 @@ No warranties are given. The license may not give you all of the permissions nec
 	</p>
 	<h4 style="color:#33A7B7">URIS DE LOS RECURSOS</h4>
 	<li> https://www.vascomap.com/resource/</li>
+	<p> Algunos ejemplos podrían ser: </p>
 		<ul>
-			<li>Municipality/SanSebastian</li>
-			<li>Province/Gipuzkoa</li>
-			<li>SecurityIndex/seguridad2020</li>
-			<li>PoliceStaff/dpSanSebastian</li>
-			<li>CrimeIndex/delitoSanSebastian</li>
-			<li>Woman/nombreUsuario</li>
-			<li>Man/nombreUsuario</li>
-			<li>Year/2020</li>
-			<li>PoliceOfficer/policeofficer1</li>
+			<li>DotPol/480021DP</li>
+			<li>Province/Biscay</li>
+			<li>Municipality/480021</li>
 		</ul>		
 </font>
 </body>

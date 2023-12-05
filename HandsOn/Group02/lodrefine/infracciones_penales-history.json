@@ -1,0 +1,206 @@
+[
+  {
+    "op": "core/column-removal",
+    "columnName": "Column 2",
+    "description": "Remove column Column 2"
+  },
+  {
+    "op": "core/column-removal",
+    "columnName": "Column 3",
+    "description": "Remove column Column 3"
+  },
+  {
+    "op": "core/column-removal",
+    "columnName": "Column 4",
+    "description": "Remove column Column 4"
+  },
+  {
+    "op": "core/column-removal",
+    "columnName": "Column 5",
+    "description": "Remove column Column 5"
+  },
+  {
+    "op": "core/column-removal",
+    "columnName": "Column 6",
+    "description": "Remove column Column 6"
+  },
+  {
+    "op": "core/column-removal",
+    "columnName": "Column 7",
+    "description": "Remove column Column 7"
+  },
+  {
+    "op": "core/column-removal",
+    "columnName": "Column 8",
+    "description": "Remove column Column 8"
+  },
+  {
+    "op": "core/column-removal",
+    "columnName": "Column 9",
+    "description": "Remove column Column 9"
+  },
+  {
+    "op": "core/column-removal",
+    "columnName": "Column 10",
+    "description": "Remove column Column 10"
+  },
+  {
+    "op": "core/column-removal",
+    "columnName": "Column 11",
+    "description": "Remove column Column 11"
+  },
+  {
+    "op": "core/column-removal",
+    "columnName": "Column 13",
+    "description": "Remove column Column 13"
+  },
+  {
+    "op": "core/column-removal",
+    "columnName": "Column 21",
+    "description": "Remove column Column 21"
+  },
+  {
+    "op": "core/column-removal",
+    "columnName": "Column 20",
+    "description": "Remove column Column 20"
+  },
+  {
+    "op": "core/column-removal",
+    "columnName": "Column 19",
+    "description": "Remove column Column 19"
+  },
+  {
+    "op": "core/column-removal",
+    "columnName": "Column 18",
+    "description": "Remove column Column 18"
+  },
+  {
+    "op": "core/column-removal",
+    "columnName": "Column 17",
+    "description": "Remove column Column 17"
+  },
+  {
+    "op": "core/column-removal",
+    "columnName": "Column 16",
+    "description": "Remove column Column 16"
+  },
+  {
+    "op": "core/column-removal",
+    "columnName": "Column 15",
+    "description": "Remove column Column 15"
+  },
+  {
+    "op": "core/column-removal",
+    "columnName": "Column 14",
+    "description": "Remove column Column 14"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "Column 12",
+    "expression": "value.toNumber()",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column Column 12 using expression value.toNumber()"
+  },
+  {
+    "op": "core/row-removal",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "Column 1",
+          "expression": "isBlank(value)",
+          "columnName": "Column 1",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "record-based"
+    },
+    "description": "Remove rows"
+  },
+  {
+    "op": "core/row-removal",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "Column 1",
+          "expression": "isBlank(value)",
+          "columnName": "Column 1",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "record-based"
+    },
+    "description": "Remove rows"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "Column 12",
+    "newColumnName": "2020",
+    "description": "Rename column Column 12 to 2020"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "Column 1",
+    "newColumnName": "Provincia",
+    "description": "Rename column Column 1 to Provincia"
+  },
+  {
+    "op": "core/row-removal",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "Blank records per column",
+          "expression": "filter(row.columnNames,cn,isBlank(if(row.record.fromRowIndex==row.index,row.record.cells[cn].value.join(\"\"),true)))",
+          "columnName": "",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "2020",
+                "l": "2020"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "description": "Remove rows"
+  }
+]
