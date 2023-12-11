@@ -125,7 +125,7 @@
     rr:predicate owl:sameAs;
     rr:objectMap [
       rml:reference "BARRIO-LINKS";
-      rr:datatype xsd:string
+      rr:datatype xsd:anyURI
     ]
   ];
 .
@@ -152,7 +152,7 @@
     rr:predicate owl:sameAs;
     rr:objectMap [
       rml:reference "DISTRITO-LINKS";
-      rr:datatype xsd:string
+      rr:datatype xsd:anyURI
     ]
   ];
 .

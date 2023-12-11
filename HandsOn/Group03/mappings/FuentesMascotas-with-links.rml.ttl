@@ -179,7 +179,7 @@
     rr:predicate owl:sameAs;
     rr:objectMap [
       rml:reference "links_distrito";
-      rr:datatype xsd:string
+      rr:datatype xsd:anyURI
       ]
   ];
 .
