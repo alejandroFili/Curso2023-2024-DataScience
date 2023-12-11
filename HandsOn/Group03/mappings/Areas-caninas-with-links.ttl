@@ -26,8 +26,30 @@
     rml:referenceFormulation ql:CSV 
   ];
   rr:subjectMap [
-    rr:template "https://w3id.org/DogFriendlyMadrid/info/resource/City/{ADDRESS_ID}";
+    rr:template "https://w3id.org/DogFriendlyMadrid/info/resource/Address/{ADDRESS_ID}";
     rr:class dog-loc:address
+  ];
+
+  rr:predicateObjectMap [
+    rr:predicate dog-loc:onThoroughfare;
+    rr:objectMap [
+      rml:reference "NOMBRE DE VÍA";
+      rr:datatype xsd:string
+      ]
+  ];
+  rr:predicateObjectMap [
+    rr:predicate dog-loc:isOfStreetType;
+    rr:objectMap [
+      rml:reference "TIPO DE VÍA";
+      rr:datatype xsd:string
+      ]
+  ];
+  rr:predicateObjectMap [
+    rr:predicate dog-loc:hasStreetNumber:;
+    rr:objectMap [
+      rml:reference "NÚMERO";
+      rr:datatype xsd:string
+      ]
   ];
   
   rr:predicateObjectMap [
@@ -52,12 +74,6 @@
     rr:predicate dog-loc:hasNeighborhood;
     rr:objectMap [
       rr:parentTriplesMap <#District>
-    ]
-  ];
-  rr:predicateObjectMap [
-    rr:predicate dog-loc:hasThoroughfare;
-    rr:objectMap [
-      rr:parentTriplesMap <#Street>
     ]
   ];
 .
@@ -93,7 +109,7 @@
     rml:referenceFormulation ql:CSV 
   ];
   rr:subjectMap [
-    rr:template "https://w3id.org/DogFriendlyMadrid/info/resource/City/{BARRIO}";
+    rr:template "https://w3id.org/DogFriendlyMadrid/info/resource/Neighborhood/{BARRIO}";
     rr:class dog-loc:Neighborhood
   ];
 
@@ -120,7 +136,7 @@
     rml:referenceFormulation ql:CSV 
   ];
   rr:subjectMap [
-    rr:template "https://w3id.org/DogFriendlyMadrid/info/resource/City/{DISTRITO}";
+    rr:template "https://w3id.org/DogFriendlyMadrid/info/resource/District/{DISTRITO}";
     rr:class dog-loc:District
   ];
 
@@ -141,38 +157,6 @@
   ];
 .
 
-<#Street> a rr:TriplesMap;
-  rml:logicalSource [
-    rml:source "./AREAS_CANINAS_2023/AREAS-CANINAS-2023-csv-final-with-links.csv" ;
-    rml:referenceFormulation ql:CSV 
-  ];
-  rr:subjectMap [
-    rr:template "https://w3id.org/DogFriendlyMadrid/info/resource/City/{NOMBRE-VIA}";
-    rr:class dbo:Street
-  ];
-
-  rr:predicateObjectMap [
-    rr:predicate rdfs:label;
-    rr:objectMap [
-      rml:reference "NOMBRE-VIA";
-      rr:datatype xsd:string
-      ]
-  ];
-  rr:predicateObjectMap [
-    rr:predicate dog-loc:isOfStreetType;
-    rr:objectMap [
-      rml:reference "CLASE-VIAL";
-      rr:datatype xsd:string
-      ]
-  ];
-  rr:predicateObjectMap [
-    rr:predicate dog-loc:hasStreetNumber:;
-    rr:objectMap [
-      rml:reference "NUM";
-      rr:datatype xsd:string
-      ]
-  ];
-.
 
 <#DogZone> a rr:TriplesMap;
   rml:logicalSource [

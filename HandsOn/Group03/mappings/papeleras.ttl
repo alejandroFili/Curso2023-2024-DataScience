@@ -39,6 +39,28 @@
   ];
 
   rr:predicateObjectMap [
+    rr:predicate dog-loc:onThoroughfare;
+    rr:objectMap [
+      rml:reference "NOM_VIA";
+      rr:datatype xsd:string
+      ]
+  ];
+  rr:predicateObjectMap [
+    rr:predicate dog-loc:isOfStreetType;
+    rr:objectMap [
+      rml:reference "TIPO_VIA";
+      rr:datatype xsd:string
+      ]
+  ];
+  rr:predicateObjectMap [
+    rr:predicate dog-loc:hasStreetNumber:;
+    rr:objectMap [
+      rml:reference "NUM_VIA";
+      rr:datatype xsd:string
+      ]
+  ];
+
+  rr:predicateObjectMap [
     rr:predicate dog-loc:hasNeighborhood;
     rr:objectMap [
       rr:parentTriplesMap <#Neighborhood>
@@ -50,16 +72,7 @@
       rr:parentTriplesMap <#District>
     ]
   ];
-  rr:predicateObjectMap [
-    rr:predicate dog-loc:hasThoroughfare;
-    rr:objectMap [
-      rr:parentTriplesMap <#Thoroughfare>
-    ]
-  ];
 .
-
-
-
 
 <#Neighborhood> a rr:TriplesMap;
   rml:logicalSource [
@@ -94,39 +107,6 @@
     rr:predicate rdfs:label;
     rr:objectMap [
       rml:reference "DISTRITO";
-      rr:datatype xsd:string
-      ]
-  ];
-.
-
-<#Thoroughfare> a rr:TriplesMap;
-  rml:logicalSource [
-    rml:source "./papelerascaninas.csv" ;
-    rml:referenceFormulation ql:CSV 
-  ];
-  rr:subjectMap [
-    rr:template "https://w3id.org/DogFriendlyMadrid/info/resource/DogGarbageBin/{NOM_VIA}";
-    rr:class dbo:Thoroughfare
-  ];
-
-  rr:predicateObjectMap [
-    rr:predicate rdfs:label;
-    rr:objectMap [
-      rml:reference "NOM_VIA";
-      rr:datatype xsd:string
-      ]
-  ];
-  rr:predicateObjectMap [
-    rr:predicate dog-loc:isOfStreetType;
-    rr:objectMap [
-      rml:reference "TIPO_VIA";
-      rr:datatype xsd:string
-      ]
-  ];
-  rr:predicateObjectMap [
-    rr:predicate dog-loc:hasStreetNumber:;
-    rr:objectMap [
-      rml:reference "NUM_VIA";
       rr:datatype xsd:string
       ]
   ];
