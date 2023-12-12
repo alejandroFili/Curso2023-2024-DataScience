@@ -1,9 +1,9 @@
 import folium
 import json
 from folium.plugins import PolyLineOffset, AntPath
-from config import DataConfig, FoliumConfig
+# from config import DataConfig, FoliumConfig
 
-def create_nearMap(current_position, parks_positions, bins_positions, fountain_positions):
+def create_nearMap(parks_positions, bins_positions, fountain_positions):
     """ Crea un mapa con los elementos
 
     Args:

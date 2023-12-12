@@ -75,7 +75,8 @@ q2 = prepareQuery(
 )
 
 results_1 = list(graph_Parks.query(q2))
-
+print(results_1)
+""" 
 # if not results_1:
 #     print("No results found.")
 # else:
@@ -169,14 +170,16 @@ if not results_care:
 else:
     for r in results_care:
         print(r.address_id, r.streetNumber)
-print("----------")
+print("----------GARBAGE")
 q4 = prepareQuery(
     f'''
-    SELECT ?item_id ?address_id ?geoID
+    SELECT ?item_id ?address_id ?geoID ?lat ?long
     WHERE {{
         ?address_id dog-loc:hasNeighborhood <https://w3id.org/DogFriendlyMadrid/info/resource/District/Centro> .
         ?item_id dog-loc:hasAddress ?address_id .
         ?item_id schema-org:geo ?geoID .
+        ?geoID schema-org:latitude ?lat .
+        ?geoID schema-org:longitude ?long .
 
     }}
     ''',
@@ -189,4 +192,78 @@ if not results_care:
     print("No results found q4.")
 else:
     for r in results_care:
-        print(r.item_id, r.geoID)
+        # print(r.item_id, r.geoID, r.lat, r.long)
+        print(r.lat, r.long)
+
+
+print("----------FOUNTAIN")
+q5 = prepareQuery(
+    f'''
+    SELECT ?item_id ?address_id ?geoID ?lat ?long
+    WHERE {{
+        ?address_id dog-loc:hasNeighborhood <https://w3id.org/DogFriendlyMadrid/info/resource/District/Centro> .
+        ?item_id dog-loc:hasAddress ?address_id .
+        ?item_id schema-org:geo ?geoID .
+        ?geoID schema-org:latitude ?lat .
+        ?geoID schema-org:longitude ?long .
+
+    }}
+    ''',
+    initNs=dict_namespaces
+)
+
+results_care = list(graph_Fountain.query(q5))
+
+if not results_care:
+    print("No results found q5.")
+else:
+    for r in results_care:
+        # print(r.item_id, r.geoID, r.lat, r.long)
+        print(r.lat, r.long)
+
+print("----------PARKS")
+q6 = prepareQuery(
+    f'''
+    SELECT ?item_id ?address_id ?geoID ?lat ?long
+    WHERE {{
+        ?address_id dog-loc:hasNeighborhood <https://w3id.org/DogFriendlyMadrid/info/resource/District/Centro> .
+        ?item_id dog-loc:hasAddress ?address_id .
+        ?item_id schema-org:geo ?geoID .
+        ?geoID schema-org:latitude ?lat .
+        ?geoID schema-org:longitude ?long .
+
+    }}
+    ''',
+    initNs=dict_namespaces
+)
+
+results_care = list(graph_Parks.query(q6))
+
+if not results_care:
+    print("No results found q6.")
+else:
+    for r in results_care:
+        # print(r.item_id, r.geoID, r.lat, r.long)
+        print(r.lat, r.long)
+
+q7 = prepareQuery(
+    f'''
+    SELECT ?center_id ?address_id ?streetName ?streetNumber 
+    WHERE {{
+        ?address_id dog-loc:hasNeighborhood <https://w3id.org/DogFriendlyMadrid/info/resource/District/Centro> .
+        # ?center_id rdf:type dog-ser:Vet .
+        # ?center_id dog-loc:hasAddress ?address_id .
+        ?address_id dog-loc:onThoroughfare ?streetName .
+        ?address_id dog-loc:hasStreetNumber ?streetNumber .
+    }}
+    ''',
+    initNs=dict_namespaces
+)
+
+results_care = list(graph_DogZone.query(q7))
+
+if not results_care:
+    print("No results found q7.")
+else:
+    for r in results_care:
+        print(r.address_id, r.streetNumber)
