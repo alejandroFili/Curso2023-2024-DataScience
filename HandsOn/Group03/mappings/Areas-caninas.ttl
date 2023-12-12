@@ -22,11 +22,11 @@
 
 <#Address> a rr:TriplesMap;
   rml:logicalSource [
-    rml:source "./AREAS_CANINAS_2023/AREAS-CANINAS-2023-csv.csv" ;
+    rml:source "./AREAS-CANINAS-2023.csv" ;
     rml:referenceFormulation ql:CSV 
   ];
   rr:subjectMap [
-    rr:template "https://w3id.org/DogFriendlyMadrid/info/resource/Address/{ADDRESS_ID}";
+    rr:template "https://w3id.org/DogFriendlyMadrid/info/resource/Address/{ID_ADRESS}";
     rr:class dog-loc:address
   ];
   rr:predicateObjectMap [
@@ -52,12 +52,6 @@
   ];;
   
   rr:predicateObjectMap [
-    rr:predicate dog-loc:hasState;
-    rr:objectMap [
-      rr:parentTriplesMap <#State>
-    ]
-  ];
-  rr:predicateObjectMap [
     rr:predicate dog-loc:hasCity;
     rr:objectMap [
       rr:parentTriplesMap <#City>
@@ -79,20 +73,12 @@
 
 <#City> a rr:TriplesMap;
   rml:logicalSource [
-    rml:source "./AREAS_CANINAS_2023/AREAS-CANINAS-2023-csv.csv" ;
+    rml:source "./AREAS-CANINAS-2023.csv" ;
     rml:referenceFormulation ql:CSV 
   ];
   rr:subjectMap [
-    rr:template "https://w3id.org/DogFriendlyMadrid/info/resource/City/{LOCALIDAD}";
+    rr:constant <https://w3id.org/DogFriendlyMadrid/info/resource/City/Madrid>;
     rr:class schema-org:City
-  ];
-
-  rr:predicateObjectMap [
-    rr:predicate schema-org:name;
-    rr:objectMap [
-      rml:reference "LOCALIDAD";
-      rr:datatype xsd:string
-      ]
   ];
   rr:predicateObjectMap [
     rr:predicate schema-org:containsPlace;
@@ -104,7 +90,7 @@
 
 <#Neighborhood> a rr:TriplesMap;
   rml:logicalSource [
-    rml:source "./AREAS_CANINAS_2023/AREAS-CANINAS-2023-csv.csv" ;
+    rml:source "./AREAS-CANINAS-2023.csv" ;
     rml:referenceFormulation ql:CSV 
   ];
   rr:subjectMap [
@@ -123,7 +109,7 @@
 
 <#District> a rr:TriplesMap;
   rml:logicalSource [
-    rml:source "./AREAS_CANINAS_2023/AREAS-CANINAS-2023-csv.csv" ;
+    rml:source "./AREAS-CANINAS-2023.csv" ;
     rml:referenceFormulation ql:CSV 
   ];
   rr:subjectMap [
@@ -142,18 +128,18 @@
 
 <#DogZone> a rr:TriplesMap;
   rml:logicalSource [
-    rml:source "./AREAS_CANINAS_2023/AREAS-CANINAS-2023-csv.csv" ;
+    rml:source "./AREAS-CANINAS-2023.csv" ;
     rml:referenceFormulation ql:CSV 
   ];
   rr:subjectMap [
-    rr:template "https://w3id.org/DogFriendlyMadrid/info/resource/DogZone/{ID_ADRESS}";
+    rr:template "https://w3id.org/DogFriendlyMadrid/info/resource/DogZone/{ID}";
     rr:class dog-ser:DogZone
   ];
 
   rr:predicateObjectMap [
     rr:predicate schema-org:identifier;
     rr:objectMap [
-      rml:reference "ID_ADRESS";
+      rml:reference "ID";
       rr:datatype xsd:string
       ]
   ];

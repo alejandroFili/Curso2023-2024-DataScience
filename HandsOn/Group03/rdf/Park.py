@@ -16,6 +16,7 @@ dict_namespaces = {
     "dbo": Namespace("https://dbpedia.org/ontology/"),
     "rdfs": Namespace("http://www.w3.org/2000/01/rdf-schema#"),
     "rdf": Namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#"),
+    "owl": Namespace("http://www.w3.org/2002/07/owl#")
 }
 
 g = Graph()
@@ -23,23 +24,43 @@ g = Graph()
 for shortcut, new_namespace in dict_namespaces.items():
     g.namespace_manager.bind(shortcut, new_namespace, override=False)
 
-g.parse("./CareCenters.nt", format="nt")
+g.parse("./Parks.nt", format="nt")
 
-q1 = prepareQuery(
+# q1 = prepareQuery(
+#     '''
+#     SELECT ?park_names
+#     WHERE {
+#         ?park_ids rdf:type schema-org:Park .
+#         ?park_ids schema-org:name ?park_names
+#     }
+#     ''',
+#     initNs=dict_namespaces
+# )
+
+# results = list(g.query(q1))
+
+# if not results:
+#     print("No results found.")
+# else:
+#     for r in results:
+#         print(r.park_names)
+
+q2 = prepareQuery(
     '''
-    SELECT ?centro
+    SELECT ?Neighborhood_names ?wiki
     WHERE {
-        ?centros rdf:type schema-org:ID .
-        ?centros rdfs:label ?centro
+        ?Neighborhood_ids rdf:type dog-loc:Neighborhood .
+        # ?Neighborhood_ids rdfs:label ?Neighborhood_names .
+        ?Neighborhood_ids owl:sameAs ?wiki
     }
     ''',
     initNs=dict_namespaces
 )
 
-results = list(g.query(q1))
+results = list(g.query(q2))
 
 if not results:
     print("No results found.")
 else:
     for r in results:
-        print(r.centro)
+        print(r.Neighborhood_names, r.wiki)

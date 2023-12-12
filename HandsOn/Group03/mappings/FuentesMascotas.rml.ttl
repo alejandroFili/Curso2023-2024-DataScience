@@ -22,7 +22,7 @@
 
 <#Address>  a rr:TriplesMap;
   rml:logicalSource [
-    rml:source "FuentesMascotas.-updated.csv" ;
+    rml:source "FuentesMascotas-updated.csv" ;
     rml:referenceFormulation ql:CSV 
   ];
   rr:subjectMap [
@@ -61,12 +61,12 @@
       ]
   ];
 
-  rr:predicateObjectMap [
-    rr:predicate dog-loc:hasState;
-    rr:objectMap [
-      rr:parentTriplesMap <#State>
-    ]
-  ];
+  # rr:predicateObjectMap [
+  #   rr:predicate dog-loc:hasState;
+  #   rr:objectMap [
+  #     rr:parentTriplesMap <#State>
+  #   ]
+  # ];
   rr:predicateObjectMap [
     rr:predicate dog-loc:hasCity;
     rr:objectMap [
@@ -87,28 +87,9 @@
   ];
 .
 
-# <#State> a rr:TriplesMap;
-#   rml:logicalSource [
-#     rml:source "FuentesMascotas.-updated.csv" ;
-#     rml:referenceFormulation ql:CSV 
-#   ];
-#   rr:subjectMap [
-#     rr:template "https://w3id.org/DogFriendlyMadrid/info/resource/City/{LOCALIDAD}";
-#     rr:class schema-org:State
-#   ];
-
-#   rr:predicateObjectMap [
-#     rr:predicate schema-org:name;
-#     rr:objectMap [
-#       rml:reference "LOCALIDAD";
-#       rr:datatype xsd:string
-#       ]
-#   ];
-# .
-
 <#City> a rr:TriplesMap;
   rml:logicalSource [
-    rml:source "FuentesMascotas.-updated.csv" ;
+    rml:source "FuentesMascotas-updated.csv" ;
     rml:referenceFormulation ql:CSV 
   ];
   rr:subjectMap [
@@ -124,7 +105,7 @@
       ]
   ];
   rr:predicateObjectMap [
-    rr:predicate schema-org:containsPlace;
+    rr:predicate dog-ser:hasService;
     rr:objectMap [
       rr:parentTriplesMap <#DrinkingFountain>
     ]
@@ -133,7 +114,7 @@
 
 <#Neighborhood> a rr:TriplesMap;
   rml:logicalSource [
-    rml:source "FuentesMascotas.-updated.csv" ;
+    rml:source "FuentesMascotas-updated.csv" ;
     rml:referenceFormulation ql:CSV 
   ];
   rr:subjectMap [
@@ -152,7 +133,7 @@
 
 <#District> a rr:TriplesMap;
   rml:logicalSource [
-    rml:source "FuentesMascotas.-updated.csv" ;
+    rml:source "FuentesMascotas-updated.csv" ;
     rml:referenceFormulation ql:CSV 
   ];
   rr:subjectMap [
@@ -171,7 +152,7 @@
 
 <#GeoCoordinates> a rr:TriplesMap;
   rml:logicalSource [
-    rml:source "FuentesMascotas.-updated.csv" ;
+    rml:source "FuentesMascotas-updated.csv" ;
     rml:referenceFormulation ql:CSV 
   ];
   rr:subjectMap [
@@ -198,7 +179,7 @@
 
 <#DrinkingFountain> a rr:TriplesMap;
   rml:logicalSource [
-    rml:source "FuentesMascotas.-updated.csv" ;
+    rml:source "FuentesMascotas-updated.csv" ;
     rml:referenceFormulation ql:CSV 
   ];
   rr:subjectMap [

@@ -31,6 +31,12 @@
     rr:class dog-loc:address
   ];
   rr:predicateObjectMap [
+    rr:predicate dog-loc:hasCity;
+    rr:objectMap [
+      rr:parentTriplesMap <#City>
+    ]
+  ];
+  rr:predicateObjectMap [
     rr:predicate dog-loc:hasNeighborhood;
     rr:objectMap [
       rr:parentTriplesMap <#District>
@@ -56,6 +62,23 @@
       rml:reference "NUMERO DIRECCION";
       rr:datatype xsd:string
       ]
+  ];
+.
+
+<#City> a rr:TriplesMap;
+  rml:logicalSource [
+    rml:source "centros-animales-with-links.csv" ;
+    rml:referenceFormulation ql:CSV 
+  ];
+  rr:subjectMap [
+    rr:constant <https://w3id.org/DogFriendlyMadrid/info/resource/City/Madrid>;
+    rr:class schema-org:City
+  ];
+  rr:predicateObjectMap [
+    rr:predicate dog-ser:hasService;
+    rr:objectMap [
+      rr:parentTriplesMap <#Vet>
+    ]
   ];
 .
 

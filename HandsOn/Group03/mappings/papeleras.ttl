@@ -59,6 +59,12 @@
       rr:datatype xsd:string
       ]
   ];
+  rr:predicateObjectMap [
+    rr:predicate dog-loc:hasCity;
+    rr:objectMap [
+      rr:parentTriplesMap <#City>
+    ]
+  ];
 
   rr:predicateObjectMap [
     rr:predicate dog-loc:hasNeighborhood;
@@ -70,6 +76,22 @@
     rr:predicate dog-loc:hasNeighborhood;
     rr:objectMap [
       rr:parentTriplesMap <#District>
+    ]
+  ];
+.
+<#City> a rr:TriplesMap;
+  rml:logicalSource [
+    rml:source "./papelerascaninas.csv" ;
+    rml:referenceFormulation ql:CSV 
+  ];
+  rr:subjectMap [
+    rr:constant <https://w3id.org/DogFriendlyMadrid/info/resource/City/Madrid>;
+    rr:class schema-org:City
+  ];
+  rr:predicateObjectMap [
+    rr:predicate dog-ser:hasService;
+    rr:objectMap [
+      rr:parentTriplesMap <#DogGarbageBin>
     ]
   ];
 .
