@@ -80,7 +80,7 @@
     ]
   ];
   rr:predicateObjectMap [
-    rr:predicate dog-loc:hasNeighborhood;
+    rr:predicate dog-loc:hasDistrict;
     rr:objectMap [
       rr:parentTriplesMap <#District>
     ]

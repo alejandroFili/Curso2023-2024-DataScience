@@ -36,7 +36,7 @@
     ]
   ];
   rr:predicateObjectMap [
-    rr:predicate dog-loc:hasNeighborhood;
+    rr:predicate dog-loc:hasDistrict;
     rr:objectMap [
       rr:parentTriplesMap <#District>
     ]
@@ -56,7 +56,7 @@
       ]
   ];
   rr:predicateObjectMap [
-    rr:predicate dog-loc:hasStreetNumber:;
+    rr:predicate dog-loc:hasStreetNumber;
     rr:objectMap [
       rml:reference "NUMERO DIRECCION";
       rr:datatype xsd:string

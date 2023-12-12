@@ -62,29 +62,31 @@ graph_Fountain.parse("./FuentesMascotas-with-links_data.nt", format="nt")
 #     for r in results:
 #         print(r.park_names)
 
+# <https://w3id.org/DogFriendlyMadrid/info/ontology/location#District>
 q2 = prepareQuery(
     '''
-    SELECT ?Neighborhood_names ?Neighborhood_id ?wiki_id
+    SELECT ?district_name ?District_id ?wiki_id
     WHERE {
-        ?Neighborhood_id rdf:type dog-loc:Neighborhood .
-        ?Neighborhood_id rdfs:label ?Neighborhood_names .
-        ?Neighborhood_id owl:sameAs ?wiki_id .
+        ?District_id rdf:type dog-loc:District .
+        ?District_id rdfs:label ?district_name .
+        ?District_id owl:sameAs ?wiki_id .
     }
     ''',
     initNs=dict_namespaces
 )
 
 results_1 = list(graph_Parks.query(q2))
-print(results_1)
-""" 
+# print(results_1)
+
 # if not results_1:
 #     print("No results found.")
 # else:
 #     for r in results_1:
-#         print(r.Neighborhood_names, r.wiki_id)
+#         print(r.district_name, r.wiki_id)
 
-user_choice = random.choice(results_1)
-print(user_choice.Neighborhood_names, user_choice.wiki_id)
+print("------User Choice")
+user_choice =random.choice(results_1) # "https://w3id.org/DogFriendlyMadrid/info/resource/District/Centro"
+print(user_choice.district_name, user_choice.wiki_id, user_choice.District_id)
 
 # # pip install sparqlwrapper
 # # https://rdflib.github.io/sparqlwrapper/
@@ -94,68 +96,35 @@ from SPARQLWrapper import TURTLE, SPARQLWrapper, JSON
 
 endpoint_url = "https://query.wikidata.org/sparql"
 
-# # query = """SELECT ?property ?propertyLabel ?value ?valueLabel 
-# # WHERE {
-# #   wd:Q9031035 ?property ?value.
-# #   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
-# # }"""
 
-# query = """SELECT ?property ?propertyLabel ?value ?valueLabel 
-# WHERE {
-#   wd:Q9031035 wdt:P1082 ?value.
-#   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
-# }"""
-
-# def get_results(endpoint_url, query):
-#     user_agent = "WDQS-example Python/%s.%s" % (sys.version_info[0], sys.version_info[1])
-#     # TODO adjust user agent; see https://w.wiki/CX6
-#     sparql = SPARQLWrapper(endpoint_url, agent=user_agent)
-#     sparql.setQuery(query)
-#     sparql.setReturnFormat(JSON)
-#     return sparql.query().convert()
-
-
-# results = get_results(endpoint_url, query)
-
-# for result in results["results"]["bindings"]:
-#     print(result)
-
-
-    
 query = f"""SELECT ?property ?propertyLabel ?value ?valueLabel 
 WHERE {{
 <{user_choice.wiki_id}> wdt:P1082 ?value.
 SERVICE wikibase:label {{ bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }}
 }}"""
-# Your variable value
 
-# # Inserting the variable into the query using string formatting
-# sparql_query = query.format(entity_id=entity_id_var)
-# query.format()
+
 
 def get_results(endpoint_url, query):
-    user_agent = "WDQS-example Python/%s.%s" % (sys.version_info[0], sys.version_info[1])
-    # TODO adjust user agent; see https://w.wiki/CX6
+    user_agent = "DOGCITY Python/%s.%s" % (sys.version_info[0], sys.version_info[1])
     sparql = SPARQLWrapper(endpoint_url, agent=user_agent)
     sparql.setQuery(query)
     sparql.setReturnFormat(JSON)
-    # sparql.setReturnFormat(TURTLE)
+
     return sparql.query().convert()
 
-
+print("----------WIKIDATA POBLACION")
 results = get_results(endpoint_url, query)
-print(results)
 for result in results["results"]["bindings"]:
     print(result["value"]["value"])
-# <{user_choice.Neighborhood_id}>
-print(user_choice.Neighborhood_id)
+
+print("----------CARE CENTER")
 q3 = prepareQuery(
     f'''
     SELECT ?center_id ?address_id ?streetName ?streetNumber 
     WHERE {{
-        ?address_id dog-loc:hasNeighborhood <https://w3id.org/DogFriendlyMadrid/info/resource/District/Centro> .
-        # ?center_id rdf:type dog-ser:Vet .
-        # ?center_id dog-loc:hasAddress ?address_id .
+        ?address_id dog-loc:hasDistrict <{user_choice.District_id}>.
+        # <https://w3id.org/DogFriendlyMadrid/info/resource/District/Retiro> .
         ?address_id dog-loc:onThoroughfare ?streetName .
         ?address_id dog-loc:hasStreetNumber ?streetNumber .
     }}
@@ -169,13 +138,14 @@ if not results_care:
     print("No results found q3.")
 else:
     for r in results_care:
-        print(r.address_id, r.streetNumber)
+        print(r.streetName, r.streetNumber)
+
 print("----------GARBAGE")
 q4 = prepareQuery(
     f'''
     SELECT ?item_id ?address_id ?geoID ?lat ?long
     WHERE {{
-        ?address_id dog-loc:hasNeighborhood <https://w3id.org/DogFriendlyMadrid/info/resource/District/Centro> .
+        ?address_id dog-loc:hasDistrict <{user_choice.District_id}> .
         ?item_id dog-loc:hasAddress ?address_id .
         ?item_id schema-org:geo ?geoID .
         ?geoID schema-org:latitude ?lat .
@@ -201,7 +171,7 @@ q5 = prepareQuery(
     f'''
     SELECT ?item_id ?address_id ?geoID ?lat ?long
     WHERE {{
-        ?address_id dog-loc:hasNeighborhood <https://w3id.org/DogFriendlyMadrid/info/resource/District/Centro> .
+        ?address_id dog-loc:hasDistrict <{user_choice.District_id}> .
         ?item_id dog-loc:hasAddress ?address_id .
         ?item_id schema-org:geo ?geoID .
         ?geoID schema-org:latitude ?lat .
@@ -226,7 +196,7 @@ q6 = prepareQuery(
     f'''
     SELECT ?item_id ?address_id ?geoID ?lat ?long
     WHERE {{
-        ?address_id dog-loc:hasNeighborhood <https://w3id.org/DogFriendlyMadrid/info/resource/District/Centro> .
+        ?address_id dog-loc:hasDistrict <{user_choice.District_id}> .
         ?item_id dog-loc:hasAddress ?address_id .
         ?item_id schema-org:geo ?geoID .
         ?geoID schema-org:latitude ?lat .
@@ -245,14 +215,12 @@ else:
     for r in results_care:
         # print(r.item_id, r.geoID, r.lat, r.long)
         print(r.lat, r.long)
-
+print("----------DOG ZONE")
 q7 = prepareQuery(
     f'''
     SELECT ?center_id ?address_id ?streetName ?streetNumber 
     WHERE {{
-        ?address_id dog-loc:hasNeighborhood <https://w3id.org/DogFriendlyMadrid/info/resource/District/Centro> .
-        # ?center_id rdf:type dog-ser:Vet .
-        # ?center_id dog-loc:hasAddress ?address_id .
+        ?address_id dog-loc:hasDistrict <{user_choice.District_id}> .
         ?address_id dog-loc:onThoroughfare ?streetName .
         ?address_id dog-loc:hasStreetNumber ?streetNumber .
     }}

@@ -27,7 +27,7 @@
     rml:referenceFormulation ql:CSV 
   ];
   rr:subjectMap [
-    rr:template "https://w3id.org/DogFriendlyMadrid/info/resource/DogGarbageBin/{Address_ID}";
+    rr:template "https://w3id.org/DogFriendlyMadrid/info/resource/Address/{Address_ID}";
     rr:class dog-loc:address
   ];
   
@@ -74,7 +74,7 @@
     ]
   ];
   rr:predicateObjectMap [
-    rr:predicate dog-loc:hasNeighborhood;
+    rr:predicate dog-loc:hasDistrict;
     rr:objectMap [
       rr:parentTriplesMap <#District>
     ]
@@ -104,7 +104,7 @@
     rml:referenceFormulation ql:CSV 
   ];
   rr:subjectMap [
-    rr:template "https://w3id.org/DogFriendlyMadrid/info/resource/DogGarbageBin/{BARRIO}";
+    rr:template "https://w3id.org/DogFriendlyMadrid/info/resource/Neighborhood/{BARRIO}";
     rr:class dog-loc:Neighborhood
   ];
 
@@ -130,7 +130,7 @@
     rml:referenceFormulation ql:CSV 
   ];
   rr:subjectMap [
-    rr:template "https://w3id.org/DogFriendlyMadrid/info/resource/DogGarbageBin/{DISTRITO}";
+    rr:template "https://w3id.org/DogFriendlyMadrid/info/resource/District/{DISTRITO}";
     rr:class dog-loc:District
   ];
 
@@ -157,7 +157,7 @@
     rml:referenceFormulation ql:CSV 
   ];
   rr:subjectMap [
-    rr:template "https://w3id.org/DogFriendlyMadrid/info/resource/DogGarbageBin/{GEO_ID}";
+    rr:template "https://w3id.org/DogFriendlyMadrid/info/resource/GeoCoordinates/{GEO_ID}";
     rr:class schema-org:GeoCoordinates
   ];
 
